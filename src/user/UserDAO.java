@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
  
 public class UserDAO {
  
@@ -13,11 +14,21 @@ public class UserDAO {
     
     public UserDAO() {
             //생성자
-            String dbURL="jdbc:mysql://localhost:3306/BBS?serverTimezone=UTC";                             
-            String dbID="자신의dbID";
-            String dbPassword="자신의dbPassword";
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn=DriverManager.getConnection(dbURL,dbID,dbPassword);
+            String dbURL="jdbc:mysql://localhost:3306/yewonlee?serverTimezone=UTC";                             
+            String dbID="yewonlee";
+            String dbPassword="yewonlee12";
+            try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            try {
+				conn=DriverManager.getConnection(dbURL,dbID,dbPassword);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     }
     public int join(User user) {
         String SQL= "INSERT INTO USER VALUES(?, ?, ?, ?, ?) ";
